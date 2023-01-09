@@ -1,0 +1,25 @@
+{% extends "bug_page/base.html" %}
+{% block body_block %}
+
+<table class="table table-striped">
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Status</th>
+    <th>Priority</th>
+    <th>Created At</th>
+    <th>Updated At</th>
+  </tr>
+  {% for bug in bugs %}
+  <tr>
+    <td>{{ bug.title }}</td>
+    <td>{{ bug.description }}</td>
+    <td>{{ bug.status }}</td>
+    <td>{{ bug.priority }}</td>
+    <td>{{ bug.created_at }}</td>
+    <td>{{ bug.updated_at }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}
