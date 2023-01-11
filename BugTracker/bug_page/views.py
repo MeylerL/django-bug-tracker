@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
@@ -25,6 +25,7 @@ def user_form(request):
 
         else:
             print(user_form.errors)
+            return HttpResponse("An internal error has occurred")
 
     else:
         user_form = UserForm()
@@ -44,7 +45,7 @@ def user_login(request):
             return HttpResponseRedirect(reverse('index'))
 
         else:
-            HttpResponse("Invalid login")
+            return HttpResponse("Invalid login")
 
     else:
         return render(request, 'bug_page/user_login.html')
@@ -61,21 +62,20 @@ def bug_table(request):
 
 @login_required
 def bug_form(request):
-    form = BugForm()
 
-    if request.method == 'POST':
         form = BugForm(request.POST)
 
         if form.is_valid():
             bug = form.save(commit=False)
             bug.author = request.user
             bug.save()
-            return redirect('bug_page/bug_table.html')
+            return HttpResponseRedirect(reverse('index'))
 
         else:
             form = BugForm()
 
-        return render(request, 'bug_page/bug_form.html', {'bug_form': form})
+            return render(request, 'bug_page/bug_form.html', {'bug_form': form})
+
 
 @login_required
 def update_bug(request, pk):
@@ -87,7 +87,7 @@ def update_bug(request, pk):
 
             if form.is_valid():
                 bug = form.save()
-                return redirect('bug_page/bug_table.html')
+                return HttpResponseRedirect('bug_page/bug_table.html')
 
         else:
             form = BugForm(instance=bug)
@@ -96,4 +96,4 @@ def update_bug(request, pk):
 
     else:
 
-        return redirect('bug_page/bug_table.html')
+        return HttpResponseRedirect('bug_page/bug_table.html')

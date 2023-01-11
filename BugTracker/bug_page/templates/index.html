@@ -3,7 +3,9 @@
 
 <div class="col-md-6">
   <div class="h-100 p-5 bg-dark text-white rounded-3" >
-    <h2>Welcome my attempt to learn Django on the fly!</h2>
+    <h2>Welcome to learning Django on the fly!</h2>
+    <p>Click here to add a bug. You need to be logged in to do this.</p>
+    <a href="{% url 'bug_page:bug_form' %}" class="btn btn-outline-light" type="button">Add a bug</a>
   </div>
 </div>
 

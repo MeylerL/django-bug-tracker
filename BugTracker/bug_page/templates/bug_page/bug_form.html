@@ -1,7 +1,6 @@
 {% extends "bug_page/base.html" %}
 {% block body_block %}
 
-<div class="container">
   <div class="jumbotron">
     {% if user.is_authenticated %}
     <form enctype="multipart/form-data" method="POST">
@@ -13,6 +12,6 @@
       <h1>Please register/login to submit a bug</h1>
     {% endif %}
   </div>
-</div>
+
 
 {% endblock %}
